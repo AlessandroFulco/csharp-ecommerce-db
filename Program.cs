@@ -115,11 +115,7 @@ do
                     // modifica ordine (update)
                     case 3:
 
-                        Customer customer = db.Customers.First();
-                        Order ordine = db.Orders.Where(ordine => ordine.CustomerId == customer.Id).First();
-
-                        ordine.Amount = 3000.00;
-                        db.SaveChanges();
+                        ModifyOrder(db);
 
                         break;
 
@@ -202,3 +198,11 @@ void Pagamento(EcommerceDbContext db, List<Order> ordini)
     db.SaveChanges();
 }
 
+void ModifyOrder(EcommerceDbContext db)
+{
+    Customer customer = db.Customers.First();
+    Order ordine = db.Orders.Where(ordine => ordine.CustomerId == customer.Id).First();
+
+    ordine.Amount = 3000.00;
+    db.SaveChanges();
+}
