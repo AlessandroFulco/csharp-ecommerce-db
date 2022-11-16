@@ -20,3 +20,24 @@
 */
 Console.WriteLine("Ciao");
 
+EcommerceDbContext db = new EcommerceDbContext();
+
+
+Console.WriteLine("Benvenuto nell'ecommerce!");
+
+Console.Write("Inserisci se sei un dipendente o un cliente: ");
+string input = Console.ReadLine();
+
+switch (input)
+{
+    case "dipendente":
+
+        break;
+
+    case "cliente":
+
+        break;
+}
+
+
+
