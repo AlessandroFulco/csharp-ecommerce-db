@@ -113,11 +113,20 @@ do
                         break;
 
                     // modifica ordine (update)
+                    case 3:
+
+                        Customer customer = db.Customers.First();
+                        Order ordine = db.Orders.Where(ordine => ordine.CustomerId == customer.Id).First();
+
+                        ordine.Amount = 3000.00;
+                        db.SaveChanges();
+
+                        break;
 
                     // elimina ordine (delete)
 
 
-                    case 3:
+                    case 4:
                         esciCliente = true;
                         break;
 
@@ -143,7 +152,7 @@ void MenuCustomer()
     Console.WriteLine("     1. Crea ordine");
     Console.WriteLine("     2. Lista Prodotti");
     Console.WriteLine("     3. Modifica ordine");
-    Console.WriteLine("     4. Elimina ordine");
+    Console.WriteLine("     4. Esci");
 }
 
 List<Product> ProductList(EcommerceDbContext db)
@@ -192,3 +201,4 @@ void Pagamento(EcommerceDbContext db, List<Order> ordini)
     db.Payments.Add(payment);
     db.SaveChanges();
 }
+
