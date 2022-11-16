@@ -52,11 +52,9 @@ do
 
         case "cliente":
 
-
-            List<Product> products = ProductList(db);
-
+            //            
             int i = 0;
-            foreach (Product product in products)
+            foreach (Product product in ProductList(db).ToList())
             {
                 Console.WriteLine((i + 1) + " - " + product.Name);
                 i++;
@@ -67,28 +65,50 @@ do
             Console.Write("\nScegli un'opzione del menu: ");
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            switch (choice)
+            bool esciCliente = false;
+            do
             {
+                switch (choice)
+                {
 
 
-                // crea ordine (create)
-                case 1:
+                    // crea ordine (create)
+                    case 1:
 
-                    //scegli il prodotto
-                    Console.Write("Scegli il nome del prodotto che vuoi ordinare: ");
-                    string nomeProdotto = Console.ReadLine();
+                        //scegli il prodotto
+                        Console.Write("Scegli il nome del prodotto che vuoi ordinare: ");
+                        string nomeProdotto = Console.ReadLine();
 
-                    //funzione crea ordine con parametro db 
-                    CreaOrdine(db, nomeProdotto);
-                    
+                        //funzione crea ordine con parametro db 
+                        CreaOrdine(db, nomeProdotto);
 
-                    break;
+
+                        break;
+
+                    case 2:
+                        List<Product> products = ProductList(db);
+
+                        i = 0;
+                        foreach (Product product in products)
+                        {
+                            Console.WriteLine((i + 1) + " - " + product.Name);
+                            i++;
+                        }
+                        break;
 
                     // modifica ordine (update)
 
                     // elimina ordine (delete)
 
-            }
+
+                    case 3:
+                        esciCliente = true;
+                        break;
+
+                    
+
+                }
+            } while (!esciCliente);
 
             break;
 
@@ -105,8 +125,9 @@ void MenuCustomer()
 {
     Console.WriteLine("Sezione: Lista Prodottis\n");
     Console.WriteLine("     1. Crea ordine");
-    Console.WriteLine("     2. Modifica ordine");
-    Console.WriteLine("     3. Elimina ordine");
+    Console.WriteLine("     2. Lista Prodotti");
+    Console.WriteLine("     3. Modifica ordine");
+    Console.WriteLine("     4. Elimina ordine");
 }
 
 
