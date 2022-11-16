@@ -52,40 +52,41 @@ do
 
         case "cliente":
 
+
+            List<Product> products = ProductList(db);
+
+            int i = 0;
+            foreach (Product product in products)
+            {
+                Console.WriteLine((i + 1) + " - " + product.Name);
+                i++;
+            }
+
             MenuCustomer();
 
             Console.Write("\nScegli un'opzione del menu: ");
             int choice = Convert.ToInt32(Console.ReadLine());
-            
+
             switch (choice)
             {
 
-                // legge gli articoli(read)
-                case 1:
-
-                    List<Product> products = ProductList(db);
-
-                    int i = 0;
-                    foreach(Product product in products)
-                    {
-                        Console.WriteLine( (i + 1) + " - " + product.Name);
-                        i++;
-                    }
-
-
-                    break;
 
                 // crea ordine (create)
+                case 1:
 
-                case 2:
+                    //scegli il prodotto
+                    Console.Write("Scegli il nome del prodotto che vuoi ordinare: ");
+                    string nomeProdotto = Console.ReadLine();
 
-
+                    //funzione crea ordine con parametro db 
+                    CreaOrdine(db, nomeProdotto);
+                    
 
                     break;
 
-                // modifica ordine (update)
+                    // modifica ordine (update)
 
-                // elimina ordine (delete)
+                    // elimina ordine (delete)
 
             }
 
@@ -103,10 +104,9 @@ do
 void MenuCustomer()
 {
     Console.WriteLine("Sezione: Lista Prodottis\n");
-    Console.WriteLine("     1. Mostra i prodotti");
-    Console.WriteLine("     2. Crea ordine");
-    Console.WriteLine("     3. Modifica ordine");
-    Console.WriteLine("     4. Elimina ordine");
+    Console.WriteLine("     1. Crea ordine");
+    Console.WriteLine("     2. Modifica ordine");
+    Console.WriteLine("     3. Elimina ordine");
 }
 
 
@@ -117,7 +117,25 @@ List<Product> ProductList(EcommerceDbContext db)
     return productList;
 }
 
-void CreaOrdine(EcommerceDbContext db)
+void CreaOrdine(EcommerceDbContext db, string nomeProdotto)
 {
+    // trovare il prodotto
+    Product product = db.Products.Where(p => p.Name == nomeProdotto).First();
 
+    //dati utente
+    Customer customer = db.Customers.First();
+
+    //dati impiegato
+    Employee employee = db.Employees.First();
+
+    int random = new Random().Next(0, 2);
+    bool stato = false;
+    if (random == 1)
+        stato = true;
+
+    //creare ordine
+    Order order = new Order() { Date = new DateTime(), Amount = product.Price, Status = stato, EmployeeId = employee.Id, CustomerId = customer.Id };
+    db.Orders.Add(order);
+    db.SaveChanges();
 }
+

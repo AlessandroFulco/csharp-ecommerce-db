@@ -10,6 +10,8 @@ public class EcommerceDbContext : DbContext
 
     public EcommerceDbContext()
     {
+        
+
         if (!Products.Any())
         {
             Product iphone14 = new Product() { Name = "Iphone 14", Description = "un iphone molto bello", Price = 1499.99 };
@@ -33,9 +35,15 @@ public class EcommerceDbContext : DbContext
             Products.Add(honor70);
             Products.Add(honorMagic4);
 
-            SaveChanges();
+            Customer user = new Customer() { Name = "Alessandro", Surname = "Fulco", Email = "alessandro@fulco.com" };
+            Customers.Add(user);
+
+            Employee employee = new Employee() { Name = "Francesco", Surname = "Rossi" };
+            Employees.Add(employee);
 
         }
+
+            SaveChanges();
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
