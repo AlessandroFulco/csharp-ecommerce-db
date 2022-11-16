@@ -39,13 +39,33 @@ do
     {
         case "dipendente":
 
-            // leggi ordine (read)
+            bool esciDipendente = true;
+            do
+            {
+                // leggi ordine (read)
+                List<Order> ordini = db.Orders.ToList();
+                foreach(Order o in ordini)
+                {
+                    Console.WriteLine("{0} - {1} - {2}", o.Date, o.Amount, o.Status);
+                }
+                // modifica ordine (update)
 
-            // modifica ordine (update)
+                // cancella ordine (delete)
 
-            // cancella ordine (delete)
+                // crea pagamento (create)
+                int random = new Random().Next(1, 11);
+                bool stato = false;
+                if (random < 6)
+                    stato = true;
+                Payment payment = new Payment() { OrderId = ordini.First().Id, Date = ordini.First().Date, Amount = ordini.First().Amount, Status = stato };
+                db.Payments.Add(payment);
+                db.SaveChanges();
 
-            // crea pagamento (create)
+
+
+
+            } while (!esciDipendente);
+            
 
 
             break;
@@ -130,7 +150,6 @@ void MenuCustomer()
     Console.WriteLine("     4. Elimina ordine");
 }
 
-
 List<Product> ProductList(EcommerceDbContext db)
 {
     List<Product> productList = db.Products.ToList<Product>();
@@ -160,3 +179,14 @@ void CreaOrdine(EcommerceDbContext db, string nomeProdotto)
     db.SaveChanges();
 }
 
+List<Order> OrderList(EcommerceDbContext db)
+{
+    List<Order> orders = db.Orders.ToList();
+
+    return orders;
+}
+
+void Pagamento(EcommerceDbContext db, string nomeProdotto)
+{
+
+}
