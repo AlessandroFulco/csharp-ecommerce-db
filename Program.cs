@@ -25,36 +25,99 @@ EcommerceDbContext db = new EcommerceDbContext();
 
 Console.WriteLine("Benvenuto nell'ecommerce!");
 
-Console.Write("Inserisci se sei un dipendente o un cliente: ");
-string input = Console.ReadLine();
 
-switch (input)
+bool esci = true;
+
+do
 {
-    case "dipendente":
 
-        // leggi ordine (read)
+    Console.Write("Inserisci se sei un dipendente o un cliente: ");
+    string input = Console.ReadLine();
 
-        // modifica ordine (update)
 
-        // cancella ordine (delete)
+    switch (input)
+    {
+        case "dipendente":
 
-        // crea pagamento (create)
+            // leggi ordine (read)
 
-        
-        break;
+            // modifica ordine (update)
 
-    case "cliente":
+            // cancella ordine (delete)
 
-        // legge gli articoli(read)
+            // crea pagamento (create)
 
-        // crea ordine (create)
 
-        // modifica ordine (update)
+            break;
 
-        // elimina ordine (delete)
+        case "cliente":
 
-        break;
+            MenuCustomer();
+
+            Console.Write("\nScegli un'opzione del menu: ");
+            int choice = Convert.ToInt32(Console.ReadLine());
+            
+            switch (choice)
+            {
+
+                // legge gli articoli(read)
+                case 1:
+
+                    List<Product> products = ProductList(db);
+
+                    int i = 0;
+                    foreach(Product product in products)
+                    {
+                        Console.WriteLine( (i + 1) + " - " + product.Name);
+                        i++;
+                    }
+
+
+                    break;
+
+                // crea ordine (create)
+
+                case 2:
+
+
+
+                    break;
+
+                // modifica ordine (update)
+
+                // elimina ordine (delete)
+
+            }
+
+            break;
+
+        case "esci":
+            esci = false;
+            break;
+
+    }
+
+} while (!esci);
+
+
+void MenuCustomer()
+{
+    Console.WriteLine("Sezione: Lista Prodottis\n");
+    Console.WriteLine("     1. Mostra i prodotti");
+    Console.WriteLine("     2. Crea ordine");
+    Console.WriteLine("     3. Modifica ordine");
+    Console.WriteLine("     4. Elimina ordine");
 }
 
 
+List<Product> ProductList(EcommerceDbContext db)
+{
+    List<Product> productList = db.Products.ToList<Product>();
 
+    return productList;
+}
+
+void CreaOrdine(EcommerceDbContext db)
+{
+
+}
