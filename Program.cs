@@ -120,9 +120,14 @@ do
                         break;
 
                     // elimina ordine (delete)
-
-
                     case 4:
+                        Customer customer = db.Customers.First();
+                        Order ordine = db.Orders.Where(ordine => ordine.CustomerId == customer.Id).First();
+
+                        db.Remove(ordine);
+                        break;
+
+                    case 5:
                         esciCliente = true;
                         break;
 
@@ -148,7 +153,8 @@ void MenuCustomer()
     Console.WriteLine("     1. Crea ordine");
     Console.WriteLine("     2. Lista Prodotti");
     Console.WriteLine("     3. Modifica ordine");
-    Console.WriteLine("     4. Esci");
+    Console.WriteLine("     4. Elimina ordine");
+    Console.WriteLine("     5. Esci");
 }
 
 List<Product> ProductList(EcommerceDbContext db)
