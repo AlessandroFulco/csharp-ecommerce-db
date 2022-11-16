@@ -32,9 +32,26 @@ switch (input)
 {
     case "dipendente":
 
+        // leggi ordine (read)
+
+        // modifica ordine (update)
+
+        // cancella ordine (delete)
+
+        // crea pagamento (create)
+
+        
         break;
 
     case "cliente":
+
+        // legge gli articoli(read)
+
+        // crea ordine (create)
+
+        // modifica ordine (update)
+
+        // elimina ordine (delete)
 
         break;
 }
