@@ -18,6 +18,8 @@
     Bonus
         Il dipendente deve poter spedire gli ordini acquistati per cui il pagamento è andato a buon fine.
 */
+using System.Collections.Generic;
+
 Console.WriteLine("Ciao");
 
 EcommerceDbContext db = new EcommerceDbContext();
@@ -53,13 +55,7 @@ do
                 // cancella ordine (delete)
 
                 // crea pagamento (create)
-                int random = new Random().Next(1, 11);
-                bool stato = false;
-                if (random < 6)
-                    stato = true;
-                Payment payment = new Payment() { OrderId = ordini.First().Id, Date = ordini.First().Date, Amount = ordini.First().Amount, Status = stato };
-                db.Payments.Add(payment);
-                db.SaveChanges();
+                Pagamento(db, ordini);
 
 
 
@@ -186,7 +182,13 @@ List<Order> OrderList(EcommerceDbContext db)
     return orders;
 }
 
-void Pagamento(EcommerceDbContext db, string nomeProdotto)
+void Pagamento(EcommerceDbContext db, List<Order> ordini)
 {
-
+    int random = new Random().Next(1, 11);
+    bool stato = false;
+    if (random < 6)
+        stato = true;
+    Payment payment = new Payment() { OrderId = ordini.First().Id, Date = ordini.First().Date, Amount = ordini.First().Amount, Status = stato };
+    db.Payments.Add(payment);
+    db.SaveChanges();
 }
