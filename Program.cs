@@ -97,8 +97,8 @@ while(!esci)
 
                         break;
 
-                    case 2:ist<Product> products = Pro
-                        LductList(db);
+                    case 2:
+                        List<Product> products = ProductList(db);
 
                         i = 0;
                         foreach (Product product in products)
