@@ -28,12 +28,11 @@ EcommerceDbContext db = new EcommerceDbContext();
 Console.WriteLine("Benvenuto nell'ecommerce!");
 
 
-bool esci = true;
+bool esci = false;
 
-do
-{
-
-    Console.Write("Inserisci se sei un dipendente o un cliente: ");
+while(!esci)
+{ 
+    Console.Write("Inserisci se sei un dipendente, un cliente o vuoi uscire dal programma: ");
     string input = Console.ReadLine();
 
 
@@ -42,7 +41,7 @@ do
         case "dipendente":
 
             bool esciDipendente = true;
-            do
+            while (!esciDipendente)
             {
                 // leggi ordine (read)
                 List<Order> ordini = db.Orders.ToList();
@@ -56,21 +55,16 @@ do
 
                 // crea pagamento (create)
                 Pagamento(db, ordini);
-
-
-
-
-            } while (!esciDipendente);
-            
-
-
+                esciDipendente = false;
+            } 
+          
             break;
 
         case "cliente":
 
             //            
             int i = 0;
-            foreach (Product product in ProductList(db).ToList())
+            foreach (Product product in ProductList(db))
             {
                 Console.WriteLine((i + 1) + " - " + product.Name);
                 i++;
@@ -78,12 +72,14 @@ do
 
             MenuCustomer();
 
-            Console.Write("\nScegli un'opzione del menu: ");
-            int choice = Convert.ToInt32(Console.ReadLine());
+            
 
             bool esciCliente = false;
             do
             {
+                Console.Write("\nScegli un'opzione del menu: ");
+                int choice = Convert.ToInt32(Console.ReadLine());
+
                 switch (choice)
                 {
 
@@ -101,8 +97,8 @@ do
 
                         break;
 
-                    case 2:
-                        List<Product> products = ProductList(db);
+                    case 2:ist<Product> products = Pro
+                        LductList(db);
 
                         i = 0;
                         foreach (Product product in products)
@@ -130,21 +126,18 @@ do
                     case 5:
                         esciCliente = true;
                         break;
-
-                    
-
+                   
                 }
             } while (!esciCliente);
 
             break;
 
         case "esci":
-            esci = false;
+            esci = true;
             break;
-
     }
 
-} while (!esci);
+};
 
 
 void MenuCustomer()
